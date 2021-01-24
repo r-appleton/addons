@@ -1,0 +1,7 @@
+{
+"sources":{
+    "Open Russian":{"enabled":true}, 
+    "Wiktionary":{"enabled":true, "locale":"ru"},
+    "Forvo":{"enabled":true, "language":"ru"}
+    }
+}

@@ -1,0 +1,35 @@
+
+#----------------------------
+# install required addins
+#----------------------------
+install addin 198750399  (Cloze Generator)
+
+
+#----------------------------
+# update data model
+#----------------------------
+change verb note type and:
+     add fields Aspect, Pair;
+     change card types e>r, r>e
+
+# (note card type added automatically for cloze note types)
+set cloze alias, asking 'Name of cloze note type', with default 'Anki Script example - cloze'
+create cloze cloze type and add fields Russian, English
+
+
+#----------------------------
+# add data to learn
+#----------------------------
+for verb думать set fields Aspect to imp, Pair to подумать
+for verb говорить set fields Aspect to imp, Pair to сказать
+
+#----------------------------
+# configure add-ins
+#----------------------------
+configure "Cloze Generator" addin, setting key "Verb Aspects"
+click "Tools.Generate cloze.Verb Aspects" menu item
+
+#----------------------------
+# display post install help
+#----------------------------
+open aspects.html help page

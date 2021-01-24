@@ -1,0 +1,9 @@
+
+#----------------------------
+# add data to learn
+#----------------------------
+display message: adding verb data
+
+#... note that this shows you can use HTML markup in a field value
+verb д<b>у</b>мать [mp3] - to think
+

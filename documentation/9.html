@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html><head><title>Commands</title><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><link href="light.css" id="stylesheet_theme" rel="stylesheet"/><link href="bold.css" id="stylesheet_stress" rel="stylesheet"/><link href="italic.css" id="stylesheet_comment" rel="stylesheet"/><link href="highlight.css" id="stylesheet_highlight" rel="stylesheet"/><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script><script src="theme.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/></head><body onload="set_style_from_storage()"><div class="container-fluid page-contents"><nav class="navbar navbar-expand-md fixed-top"><a class="navbar-item navbar-brand fa fa-home d-none d-md-inline" href="contents.html"></a><div class="navbar-item justify-content-left mr-auto navbar-text"><span class="page-number">9</span> Commands</div><div><span></span><div class="dropdown dropleft d-md-none" id="context-menu"><button class="navbar-item justify-content-right btn fa fa-ellipsis-v" data-toggle="dropdown"></button><div class="dropdown-menu" id="menu-page-narrow"><a class="dropdown-item fa fa-home" href="contents.html"> Contents</a></div></div></div></nav><span></span><div class="blankline">
+        This page describes the Anki Script default command syntax.
+    </div><div class="blankline">
+        All command parameters may be quoted using either single or double quotes.
+        <span class="ecetera" data-target="#collapse0" data-toggle="collapse">...</span><div class="collapse" id="collapse0"><div class="blankline">
+                If quotes are present the outermost ones are removed, so <code> 'value' </code> and <code> value </code> 
+                are equivalent.  
+            </div><div class="blankline">
+		        When a command parameter specifies a list of values the items in the list are separated using a comma, and 
+		        each item is stripped of the outermost quotes like for single values.  So, for example, , so 
+		        <code> 'value1', 'value2' </code> and <code> value1,value2 </code> are equivalent.
+		    </div></div>
+</div><div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse1" data-toggle="collapse">Blank lines</div><div class="collapse" id="collapse1"><div class="blankline">
+                Lines consisting only of whitespace are ignored.
+            </div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse2" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Comments</div>
+<div class="col-md-4"><small>#</small></div>
+</div>
+</div><div class="collapse" id="collapse2"><div class="blankline">
+                Lines starting with '#' are comments.
+                <pre><code>
+#----------------------------
+# install required addins
+#----------------------------
+</code></pre>
+</div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse3" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Display message</div>
+<div class="col-md-4"><small>display message: {message}</small></div>
+</div>
+</div><div class="collapse" id="collapse3"><div class="blankline">
+                This command displays a message to the user.
+                <pre><code>display message: adding verb data</code></pre>
+</div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse4" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Open help page</div>
+<div class="col-md-4"><small>open {name} help page</small></div>
+</div>
+</div><div class="collapse" id="collapse4"><div class="blankline">
+                This command opens one of the addon's help pages.
+                <pre><code>open main help page</code></pre>
+</div><div class="blankline"><span class="comment">
+                A help page name of 'main' can be used to refer to 'index.html'.
+            </span></div><div class="blankline"><span class="comment">
+                For ad-hoc scripts, or if the addon did not specify a location for help pages, the command is ignored. 
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse5" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Perform menu action</div>
+<div class="col-md-4"><small>click {name} menu item</small></div>
+</div>
+</div><div class="collapse" id="collapse5"><div class="blankline">
+                This command performs a menu action
+                <pre><code>click "Courses.Anki Script example custom syntax.Verb Aspects" menu item</code></pre>
+</div><div class="blankline"><span class="comment">
+                A dot '.' is used to separate sub-menus.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse6" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Set alias value</div>
+<div class="col-md-4"><small>set {name} alias, asking {prompt}, with default {default}</small></div>
+</div>
+</div><div class="collapse" id="collapse6"><div class="blankline">
+                This command displays a prompt to the user and sets an alias <a class="text-muted fa fa-external-link" href="7.html"></a> value.
+                <pre><code>set verbs alias, asking 'Deck for learning verbs', with default 'Anki Script::example'</code></pre>
+</div><div class="blankline"><span class="comment">
+                If the user selects 'Cancel' in the popup dialog the script execution is abandoned.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse7" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Install addon</div>
+<div class="col-md-4"><small>install addin {id} ({name})</small></div>
+</div>
+</div><div class="collapse" id="collapse7"><div class="blankline">
+                This command installs an addon from AnkiWeb.
+                <pre><code>install addin 1984823157 (Audio Files)</code></pre>
+</div><div class="blankline"><span class="comment">
+                If the addon has already been installed this command is ignored.
+            </span></div><div class="blankline"><span class="comment">
+                The user is prompted to agree with the installation.  The id must be the addon id shown on the 
+                <a href="https://ankiweb.net/shared/addons/2.1">AnkiWeb</a> site, and the 'Help' button on the 
+                confirmation dialog is linked to the addin's AnkiWeb page.
+            </span></div><div class="blankline"><span class="comment">
+                The name should be the name that Anki uses for the addon.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse8" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Configure an addon</div>
+<div class="col-md-4"><small>configure {name} addin</small></div>
+</div>
+</div><div class="collapse" id="collapse8"><div class="blankline">
+                This command replaces the configuration for an addon.  The new configuration must be provided in the 
+                domain specific/course addon data <a class="text-muted fa fa-external-link" href="6.html"></a>.
+                <pre><code>configure "Audio Files" addin</code></pre>
+</div><div class="blankline"><span class="comment">
+                The name should be the name that Anki uses for the addon.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse9" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Partially configure an addon</div>
+<div class="col-md-4"><small>configure {name} addin, setting key {key}</small></div>
+</div>
+</div><div class="collapse" id="collapse9"><div class="blankline">
+                This command replaces a subset of the configuration for an addon <a class="text-muted fa fa-external-link" href="11.html"></a> .  The new 
+                configuration must be provided in the domain specific/course addon data <a class="text-muted fa fa-external-link" href="6.html"></a>
+<pre><code>configure "Audio Files" addin, setting key "sources"</code></pre>
+</div><div class="blankline"><span class="comment">
+                The name should be the name that Anki uses for the addon.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse10" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Copy a single file</div>
+<div class="col-md-4"><small>copy {name} from {source} to {destination}</small></div>
+</div>
+</div><div class="collapse" id="collapse10"><div class="blankline">
+                This command copies a single file from an addon internal directory <a class="text-muted fa fa-external-link" href="6.html"></a>.
+                <pre><code>copy _ankiscript_example.css from media to Anki media collection</code></pre>
+</div><div class="blankline"><span class="comment">
+                The destination can be a directory alias, or 'Anki media collection' to specify that the file is to 
+                be copied into the Anki media directory.
+            </span></div><div class="blankline"><span class="comment">
+                Note that media files referred to by field values are automatically copied <a class="text-muted fa fa-external-link" href="13.html"></a> by Anki 
+                Script when the field value is set.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse11" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Create multiple decks</div>
+<div class="col-md-4"><small>create decks {decks}</small></div>
+</div>
+</div><div class="collapse" id="collapse11"><div class="blankline">
+                This command creates multiple decks.
+                <pre><code>create decks verbs, nouns</code></pre>
+</div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse12" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Create a single decks</div>
+<div class="col-md-4"><small>create deck {deck}</small></div>
+</div>
+</div><div class="collapse" id="collapse12"><div class="blankline">
+                This command creates a single deck.
+                <pre><code>create deck verbs</code></pre>
+</div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse13" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Add note</div>
+<div class="col-md-4"><small>add {model} note, setting fields {fields}</small></div>
+</div>
+</div><div class="collapse" id="collapse13"><div class="blankline">
+                This command adds a new note, setting values for multiple fields.
+                <pre><code>add verb note, setting fields Russian to д<b>у</b>мать, English to "to think", Audio to "[sound:думать.mp3]"</code></pre>
+</div><div class="blankline"><span class="comment">
+                Tags may be set, and field values can contain HTML or media references <a class="text-muted fa fa-external-link" href="10.html"></a>.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse14" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Set fields values for an existing note</div>
+<div class="col-md-4"><small>for {model} {note} set fields {fields}</small></div>
+</div>
+</div><div class="collapse" id="collapse14"><div class="blankline">
+                This command sets multiple field values for an existing note.
+                <pre><code>for verb думать set fields:
+    Russian (я) to думаю,
+    Russian (ты) to думаешь,
+    Russian (он/она/оно) to думает,
+    Russian (мы) to думаем,
+    Russian (вы) to думаете,
+    Russian (они) to думают
+</code></pre>
+</div><div class="blankline"><span class="comment">
+                Tags may be set, and field values can contain HTML or media references <a class="text-muted fa fa-external-link" href="10.html"></a>.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse15" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Set a field value for an existing note</div>
+<div class="col-md-4"><small>for {model} {note} set field {field} to {value}</small></div>
+</div>
+</div><div class="collapse" id="collapse15"><div class="blankline">
+                This command set a single field value for an existing note.
+                <pre><code>for verb думать set field Aspect to imp</code></pre>
+</div><div class="blankline"><span class="comment">
+                Tags may be set, and field values can contain HTML or media references <a class="text-muted fa fa-external-link" href="10.html"></a>.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse16" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Change the default deck for a card template</div>
+<div class="col-md-4"><small>set default deck to {deck} for {model} card type {template}</small></div>
+</div>
+</div><div class="collapse" id="collapse16"><div class="blankline">
+                This command changes the default deck for a single card template.
+                <pre><code>set default deck to vocabulary for pronoun card type e&gt;r (nom, m)</code></pre>
+</div><div class="blankline"><span class="comment">
+                Note that the card template is referred to by its name, not position.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse17" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Change the default deck for multiple card templates</div>
+<div class="col-md-4"><small>set default deck to {deck} for {model} card types {templates}</small></div>
+</div>
+</div><div class="collapse" id="collapse17"><div class="blankline">
+                This command changes the default deck for a multiple card templates.
+                <pre><code>set default deck to vocabulary for pronoun card types e&gt;r (nom, m), r&gt;e (nom, m)</code></pre>
+</div><div class="blankline"><span class="comment">
+                Note that the card templates are referred to by their name, not position.
+            </span></div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse18" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Create a new note type</div>
+<div class="col-md-4"><small>create {model} note type and {commands}</small></div>
+</div>
+</div><div class="collapse" id="collapse18"><div class="blankline">
+                This command creates a new note type.
+                <pre><code>create verb note type and:
+    add fields Russian, Audio, English;
+    add card types e&gt;r, r&gt;e, setting default deck to verbs
+</code></pre>
+</div><div class="blankline"><span class="comment">
+                This command must have at least one sub-command as at least one field and one card template must 
+                be defined for the note type.
+            </span></div><div class="blankline"><span class="comment">
+                Parameters <a class="text-muted fa fa-external-link" href="12.html"></a> may be used in sub-commands.
+            </span></div><div class="blankline">
+                Refer to <a class="text-muted fa fa-external-link" href="10.html"></a> for how to specify styling. 
+            </div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse19" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Create a new cloze note type</div>
+<div class="col-md-4"><small>create {model} cloze type and {commands}</small></div>
+</div>
+</div><div class="collapse" id="collapse19"><div class="blankline">
+                This command creates a new cloze note type.
+                <pre><code>create declension cloze type and add fields Russian, English</code></pre>
+</div><div class="blankline"><span class="comment">
+                This command must have at least one sub-command as at least one field must be defined for the 
+                note type.  Note that as Anki automatically creates card templates for cloze note types no card 
+                templates can be added.
+            </span></div><div class="blankline"><span class="comment">
+                Parameters <a class="text-muted fa fa-external-link" href="12.html"></a> may be used in sub-commands.
+            </span></div><div class="blankline">
+                Refer to <a class="text-muted fa fa-external-link" href="10.html"></a> for how to specify styling. 
+            </div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse20" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Edit a new note type</div>
+<div class="col-md-4"><small>change {model} note type and {commands}</small></div>
+</div>
+</div><div class="collapse" id="collapse20"><div class="blankline">
+                This command changes a note type.
+                <pre><code>change verb note type and add field Aspect</code></pre>
+</div><div class="blankline"><span class="comment">
+                This command must have at least one sub-command.
+            </span></div><div class="blankline"><span class="comment">
+                Parameters <a class="text-muted fa fa-external-link" href="12.html"></a> may be used in sub-commands.
+            </span></div><div class="blankline">
+                Note that if a new styling is defined the note type styling is updated. Refer to <a class="text-muted fa fa-external-link" href="10.html"></a> 
+                for how to specify styling. 
+            </div></div></div></div><div class="blankline">
+        There may be multiple sub-commands, separated by a semi-colon ';' and for readability they may be placed on 
+        a new line.
+    </div><div class="blankline">
+        The sub-commands used when creating or changing note types are:
+    </div><div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse21" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Define parameters</div>
+<div class="col-md-4"><small>with {parameters}</small></div>
+</div>
+</div><div class="collapse" id="collapse21"><div class="blankline">
+                Defines parameters values to use when creating fields and card templates.
+                <pre><code>change verb note type and:
+    with PERSON in [я, ты, он/она/оно, мы, вы, они];</code></pre>
+</div><div class="blankline">
+                Refer to <a class="text-muted fa fa-external-link" href="12.html"></a> for details about using parameters. 
+            </div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse22" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Translate parameters</div>
+<div class="col-md-4"><small>translate {name} to [{values}]</small></div>
+</div>
+</div><div class="collapse" id="collapse22"><div class="blankline">
+                Defines parameter translations to use when creating card templates.
+                <pre><code>change verb note type and:
+    with PERSON in [я, ты, он/она/оно, мы, вы, они];
+    translate PERSON to [I, you, he/she/it, we, you, they];</code></pre>
+</div><div class="blankline">
+                Refer to <a class="text-muted fa fa-external-link" href="12.html"></a> for details about using parameters and translations. 
+            </div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse23" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Add new field</div>
+<div class="col-md-4"><small>add field {field}</small></div>
+</div>
+</div><div class="collapse" id="collapse23"><div class="blankline">
+                Add a new field to the note type.
+                <pre><code>change verb note type and:
+     add field Aspect;</code></pre>
+</div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse24" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Add new fields</div>
+<div class="col-md-4"><small>add fields {field}</small></div>
+</div>
+</div><div class="collapse" id="collapse24"><div class="blankline">
+                Add new fields to the note type.
+                <pre><code>change verb note type and:
+     add fields Aspect, Pair;</code></pre>
+</div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse25" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Add new card template</div>
+<div class="col-md-4"><small>add card type {template}, setting default deck to {deck}</small></div>
+</div>
+</div><div class="collapse" id="collapse25"><div class="blankline">
+                Add a new card template to the note type.
+                <pre><code>create verb note type and:
+    add card type e&gt;r, setting default deck to verbs</code></pre>
+</div><div class="blankline">
+                Refer to <a class="text-muted fa fa-external-link" href="10.html"></a> for how to define the card template contents. 
+            </div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse26" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Add new card templates</div>
+<div class="col-md-4"><small>add card types {templates}, setting default deck to {deck}</small></div>
+</div>
+</div><div class="collapse" id="collapse26"><div class="blankline">
+                Add new card templates to the note type.
+                <pre><code>create verb note type and:
+    add card types e&gt;r, r&gt;e, setting default deck to verbs</code></pre>
+</div><div class="blankline">
+                Refer to <a class="text-muted fa fa-external-link" href="10.html"></a> for how to define the card template contents. 
+            </div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse27" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Edit card template definition</div>
+<div class="col-md-4"><small>change card type {template}</small></div>
+</div>
+</div><div class="collapse" id="collapse27"><div class="blankline">
+                Changes a card template definition.
+                <pre><code>change verb note type and:
+     change card type e&gt;r</code></pre>
+</div><div class="blankline">
+                Refer to <a class="text-muted fa fa-external-link" href="10.html"></a> for how to define the card template contents. 
+            </div></div></div><div class="blankline mx-3"><div class="title sub-section w-100" data-target="#collapse28" data-toggle="collapse">
+<div class="row">
+<div class="col-md-8">Edit card template definitions</div>
+<div class="col-md-4"><small>change card types {templates}</small></div>
+</div>
+</div><div class="collapse" id="collapse28"><div class="blankline">
+                Changes multiple card template definitions.
+                <pre><code>change verb note type and:
+     change card types e&gt;r, r&gt;e</code></pre>
+</div><div class="blankline">
+                Refer to <a class="text-muted fa fa-external-link" href="10.html"></a> for how to define the card template contents. 
+            </div></div></div></div></div></body></html>

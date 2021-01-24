@@ -1,0 +1,31 @@
+
+#----------------------------
+# update data model
+#----------------------------
+# NB. this also illustrates using parameters to add multiple fields and cards
+change verb note type and:
+    with PERSON in [я, ты, он/она/оно, мы, вы, они];
+    translate PERSON to [I, you, he/she/it, we, you, they];
+    add field Russian (${PERSON});
+    add card types "${PERSON}", setting default deck to verbs
+
+#----------------------------
+# add data to learn
+#----------------------------
+add verb note, setting fields Russian to знать, English to "to know", Audio to "[sound:знать.mp3]",
+    Russian (я) to знаю,
+    Russian (ты) to знаешь,
+    Russian (он/она/оно) to знает,
+    Russian (мы) to знаем,
+    Russian (вы) to знаете,
+    Russian (они) to знают,
+    Tags to "lesson2 1st"
+
+for verb думать set fields:
+    Russian (я) to думаю,
+    Russian (ты) to думаешь,
+    Russian (он/она/оно) to думает,
+    Russian (мы) to думаем,
+    Russian (вы) to думаете,
+    Russian (они) to думают,
+    Tags to "lesson2 1st"

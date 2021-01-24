@@ -1,0 +1,19 @@
+
+#----------------------------
+# update data model
+#----------------------------
+change verb note type and:
+    with GENDER in [m, f, n, pl];
+    add field English (past);
+    add field Russian (past, ${GENDER});
+    add card types "e>r (past, ${GENDER})", "r>e (past, ${GENDER})", setting default deck to verbs
+
+#----------------------------
+# add data to learn
+#----------------------------
+verb говорить [mp3] (to speak) with:
+    present tense: говорю, говоришь, говорит, говорим, говорите, говорят;
+    past tense (spoke): говорил, говорила, говорило, говорили
+
+думать past tense (thought): думал, думала, думало, думали
+знать past tense (knew): знал, знала, знало, знали

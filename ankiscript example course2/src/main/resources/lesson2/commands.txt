@@ -1,0 +1,17 @@
+
+#----------------------------
+# update data model
+#----------------------------
+# NB. this also illustrates using parameters to add multiple fields and cards
+change verb note type and:
+    with PERSON in [я, ты, он/она/оно, мы, вы, они];
+    add field Russian (${PERSON});
+    add card types "${PERSON}", setting default deck to verbs
+
+#----------------------------
+# add data to learn
+#----------------------------
+
+думать present tense: думаю, думаешь, думает, думаем, думаете, думают
+
+verb знать [mp3] (to know) with present tense: знаю, знаешь, знает, знаем, знаете, знают

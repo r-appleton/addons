@@ -1,0 +1,40 @@
+
+#----------------------------
+# update data model
+#----------------------------
+change verb note type and:
+    with GENDER in [m, f, n, pl];
+    add field English (past);
+    add field Russian (past, ${GENDER});
+    add card types "e>r (past, ${GENDER})", "r>e (past, ${GENDER})", setting default deck to verbs
+
+#----------------------------
+# add data to learn
+#----------------------------
+add verb note, setting fields Russian to говорить, English to "to speak", Audio to "[sound:говорить.mp3]",
+    Image to <img src="speak.jpg">,
+    Russian (я) to говорю,
+    Russian (ты) to говоришь,
+    Russian (он/она/оно) to говорит,
+    Russian (мы) to говорим,
+    Russian (вы) to говорите,
+    Russian (они) to говорят,
+    English (past) to spoke,
+    Russian (past, m) to говорил,
+    Russian (past, f) to говорила,
+    Russian (past, n) to говорило,
+    Russian (past, pl) to говорили
+
+for verb думать set fields:
+    English (past) to thought,
+    Russian (past, m) to думал,
+    Russian (past, f) to думала,
+    Russian (past, n) to думало,
+    Russian (past, pl) to думали
+
+for verb знать set fields:
+    English (past) to knew,
+    Russian (past, m) to знал,
+    Russian (past, f) to знала,
+    Russian (past, n) to знало,
+    Russian (past, pl) to знали

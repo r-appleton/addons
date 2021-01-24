@@ -1,0 +1,32 @@
+
+#----------------------------
+# install required addins
+#----------------------------
+install addin 1984823157 (Audio Files)
+
+#----------------------------
+# initialise course settings
+#----------------------------
+set default alias, asking 'Default deck', with default 'Default'
+set verbs alias, asking 'Deck for learning verbs', with default 'Anki Script::example'
+
+#----------------------------
+# create data model
+#----------------------------
+create deck verbs
+copy _ankiscript_example.css from media to Anki media collection
+
+set verb alias, asking 'Name of verb note type', with default 'Anki Script example - verb'
+create verb note type and:
+    add fields Russian, Audio, English;
+    add card types e>r, r>e, setting default deck to verbs
+
+#----------------------------
+# configure add-ins
+#----------------------------
+configure "Audio Files" addin, setting key "sources"
+
+#----------------------------
+# display post install help
+#----------------------------
+open main help page
