@@ -12,10 +12,15 @@ class ForvoParser:
         doc = BeautifulSoup(data, 'html.parser')
         self._get_javascript_values(doc)
         div = doc.find('div', id='language-container-{0}'.format(language))
-        span = div.find('span', class_='play', title='Listen {0} pronunciation'.format(word))
-        if not span:
-            span = div.find('span', class_='play', title='Listen {0} pronunciation'.format(word.capitalize()))
-        return self._parse_tag(span) if span else None
+        if div:
+            span = div.find('span', class_='play', title='Listen {0} pronunciation'.format(
+                word))
+            if not span:
+                span = div.find('span', class_='play', title='Listen {0} pronunciation'.format(
+                    word.capitalize()))
+            return self._parse_tag(span)
+        else:
+            return None
 
     def _get_javascript_values(self, doc):
         self._protocol = None
