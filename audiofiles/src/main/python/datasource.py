@@ -6,6 +6,7 @@ from aqt.utils import showWarning
 from .wiktionary import Wiktionary
 from .openrussian import OpenRussian
 from .forvo import Forvo
+from .rules import RULES
 
 
 class Datasource:
@@ -25,6 +26,7 @@ class Datasource:
             settings = data['sources'][source.name]
             if settings:
                 source.enabled = settings['enabled']
+                source.rules = settings['rules'] if 'rules' in settings else ['lower case']
                 source.setConfig(settings)
             else:
                 source.enabled = False
@@ -33,11 +35,14 @@ class Datasource:
         for source in self._sources:
             if source.enabled:
                 try:
-                    result = source.lookup(word)
-                    if result != None:
-                        (fmt, data) = result
-                        if data != None:
-                            return self._save(word, data, fmt)
+                    # use RULES.keys() and check if rule in source.rules to keep same ordering as rule definitions
+                    for rule in RULES.keys():
+                        if rule in source.rules:
+                            result = source.lookup(RULES[rule]['function'](word))
+                            if result != None:
+                                (fmt, data) = result
+                                if data != None:
+                                    return self._save(word.lower(), data, fmt)
                 except Exception as x:
                     showWarning('Error finding sound data for {0} from {1}:\n{2}'.format(word, source.name, str(x)), title='Sound Files')
         return None

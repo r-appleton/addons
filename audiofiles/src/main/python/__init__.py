@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os.path
+import copy
 from anki.hooks import addHook
 from anki.utils import stripHTMLMedia
 from aqt import mw
@@ -11,7 +12,16 @@ from .dlgconfig import DlgConfig
 from aqt.qt import *
 
 datasource = Datasource()
-datasource.setConfig(mw.addonManager.getConfig(__name__))
+
+def get_config():
+    config = mw.addonManager.getConfig(__name__)
+    if 'profiles' not in config:
+        config['profiles'] = {}
+    if mw.pm.name not in config['profiles']:
+        original = copy.deepcopy(config)
+        del original['profiles']
+        config['profiles'][mw.pm.name] = original
+    return config
 
 def getWordToLookup(editor):
     if datasource.use_text_selection and editor.web.hasSelection():
@@ -21,8 +31,11 @@ def getWordToLookup(editor):
 
 def onGetSoundFile(editor):
     word = stripHTMLMedia(getWordToLookup(editor))
-    filename = datasource.lookup(word.lower())
+    datasource.setConfig(get_config()['profiles'][mw.pm.name])
+    filename = datasource.lookup(word)
     if filename:
+        if datasource.use_text_selection and editor.web.hasSelection():
+            editor.web.triggerPageAction(QWebEnginePage.Unselect)
         editor.addMedia(filename)
     else:
         showWarning('{0}: no sound data found'.format(word, title='Sound Files'))
@@ -33,10 +46,10 @@ def addEditorButton(buttons, editor):
     return buttons + [editor._addButton(icon, 'audio', 'lookup audio file')]
 
 def configure():
-    config = mw.addonManager.getConfig(__name__)
-    if DlgConfig(config).exec():
+    config = get_config()
+    if DlgConfig(config['profiles'][mw.pm.name]).exec():
         mw.addonManager.writeConfig(__name__, config)
-        datasource.setConfig(mw.addonManager.getConfig(__name__))
+        datasource.setConfig(config['profiles'][mw.pm.name])
 
 addHook('setupEditorButtons', addEditorButton)
 mw.addonManager.setConfigAction(__name__, configure)

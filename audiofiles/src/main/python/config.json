@@ -1,7 +1,7 @@
 {
 "sources":{
-    "Open Russian":{"enabled":true}, 
-    "Wiktionary":{"enabled":true, "locale":"ru"},
-    "Forvo":{"enabled":true, "language":"ru"}
+    "Open Russian":{"enabled":true, "rules":["lower case"]}, 
+    "Wiktionary":{"enabled":true, "locale":"ru", "rules":["lower case"]},
+    "Forvo":{"enabled":true, "language":"ru", "rules":["lower case"]}
     }
 }

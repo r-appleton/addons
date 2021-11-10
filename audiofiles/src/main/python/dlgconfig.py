@@ -1,6 +1,7 @@
 from aqt import mw
 from aqt.qt import *
 from .ui import QHSeparationLine
+from .rules import RULES
 
 class DlgConfig(QDialog):
     def __init__(self, config):
@@ -54,16 +55,53 @@ class DlgConfig(QDialog):
         layout.addWidget(QLabel('enabled?'), row, 1)
         layout.addWidget(enabled, row, 2)
         row = row + 1
+
         for key in config.keys():
-            if key != 'enabled':
+            if key != 'enabled' and key != 'rules':
                 attribute = QLineEdit()
                 attribute.setText(config[key])
-                attribute.textChanged.connect(lambda v: self._setConfigValue(config, key, v))
-
+                attribute.textChanged.connect(self._get_config_callback(config, key))
                 layout.addWidget(QLabel(key), row, 1)
                 layout.addWidget(attribute, row, 2)
                 row = row + 1
+
+        layout.addWidget(QLabel('search rules'), row, 1)
+        layout.addWidget(self._getRulePanel(config), row, 2)
+        row = row + 1
+
         return row
+
+    def _getRulePanel(self, config):
+        layout = QGridLayout()
+        row = 0
+        for name in RULES.keys():
+            rule = QCheckBox()
+            rule.setChecked(name in config['rules'])
+            rule.toggled.connect(self._get_config_rule_callback(config, name))
+            layout.addWidget(rule, row, 0)
+            layout.addWidget(QLabel(RULES[name]['description']), row, 1)
+            row = row + 1
+        panel = QWidget()
+        panel.setLayout(layout)
+        return panel
+
+    def _get_config_callback(self, config, key):
+        return lambda v: self._setConfigValue(config, key, v)
 
     def _setConfigValue(self, config, key, value):
         config[key] = value
+
+    def _get_config_rule_callback(self, config, rule):
+        return lambda v: self._setConfigRuleValue(config, rule, v)
+
+    def _setConfigRuleValue(self, config, rule, selected):
+        if 'rules' not in config:
+            config['rules'] = []
+
+        if selected:
+            if rule not in config['rules']:
+                config['rules'].append(rule)
+        else:
+            if rule in config['rules']:
+                config['rules'].remove(rule)
+        
