@@ -72,6 +72,9 @@ class DlgConfig(QDialog):
         return row
 
     def _getRulePanel(self, config):
+        if 'rules' not in 'config':
+            config['rules'] = ['lower case']
+
         layout = QGridLayout()
         row = 0
         for name in RULES.keys():
