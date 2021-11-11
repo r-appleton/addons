@@ -30,8 +30,8 @@ def getWordToLookup(editor):
         return editor.note.fields[editor.currentField]
 
 def onGetSoundFile(editor):
-    word = stripHTMLMedia(getWordToLookup(editor))
     datasource.setConfig(get_config()['profiles'][mw.pm.name])
+    word = stripHTMLMedia(getWordToLookup(editor))
     filename = datasource.lookup(word)
     if filename:
         if datasource.use_text_selection and editor.web.hasSelection():
